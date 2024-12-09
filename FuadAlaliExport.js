@@ -1,1 +1,59 @@
-(function(){"use strict";function i(r){window.showInstruction?window.showInstruction(r,"ctl00_ibtnCloseInstructionBox","ctl00_lblInstrctionTitle","ط¨ط±ط§ظ…ط¬ طھط¹ظ„ظٹظ…ظٹط© eduwebdev.net","350","170"):alert(r)}function d(){var s;if(!window.location.href.includes("noor.moe.gov.sa")){i("ظٹظ…ظƒظ† ط§ظ„ط§ط³طھظپط§ط¯ط© ظ…ظ† ط§ظ„ط§ط¯ط§ط© ظپظٹ ظ…ظˆظ‚ط¹ ظ†ط¸ط§ظ… ظ†ظˆط± ظپظ‚ط·");return}if((s=window.hideInstructionDialog)==null||s.call(window),document.querySelector("#eduwebdev_dot_net_ExportContainer"))return;const n=document.querySelector(".MSRS-RVC"),c=n==null?void 0:n.parentElement;if(!n||!c){i("ط§ط¶ط؛ط· ط§ظ„ط±ط§ط¨ط· ط¹ظ†ط¯ظ…ط§ ظٹط¸ظ‡ط± ط§ظ„طھظ‚ط±ظٹط± ط§ظ„ظ…ط±ط§ط¯ طھطµط¯ظٹط±ظ‡ ط¹ظ„ظ‰ ط§ظ„ط´ط§ط´ط©");return}const u=n.id,o=document.createElement("div");o.setAttribute("style","padding: 20px; text-align: center;"),o.setAttribute("id","eduwebdev_dot_net_ExportContainer");for(const e of["pdf","excel","word"]){const t=document.createElement("input");t.type="button",t.name="eduwebdev_dot_net_ExportButton_"+e,t.id="eduwebdev_dot_net_ExportButton_"+e,t.value=`طھطµط¯ظٹط± ${e.toUpperCase()}`,t.title=`طھطµط¯ظٹط± ${e.toUpperCase()}`,t.classList.add("btnstyle"),t.addEventListener("click",()=>window.$find(u).exportReport(e==="excel"?"EXCELOPENXML":e)),o.append(t)}c.prepend(o)}window.EDUWEBDEVDOTNET=d,d()})();
+(function () {
+    "use strict";
+    function InitFunction() {
+        if (!window.location.href.includes("noor.moe.gov.sa")) {
+            Swal.fire({
+                icon: "error",
+                title: "افتح نظام نور لاستخدام هذه الميزة",
+                showCloseButton: true,
+                footer: '<div style="color: blue;font-size: 14px;font-weight: bold;">موقع مجموعة برامج فؤاد العلي</div>'
+            });
+            return;
+        }
+        const RepCont = document.querySelector(".MSRS-RVC"), Contiv = RepCont == null ? void 0 : RepCont.parentElement;
+        if (!RepCont || !Contiv) {
+            Swal.fire({
+                icon: "error",
+                title: "اضغط عرض التقرير لكي يتم تصديره",
+                showCloseButton: true,
+                confirmButtonText: "إغلاق",
+                footer: '<div style="color: blue;font-size: 14px;font-weight: bold;">موقع مجموعة برامج فؤاد العلي</div>'
+            });
+            return;
+        }
+        try {
+            var divToRemove = document.getElementById("Fuadalali_ExportContainer");
+            if (divToRemove) {
+                divToRemove.remove();
+            }
+        } catch (e) {}
+        const RepName = RepCont.id, ContDiv = document.createElement("div");
+        ContDiv.setAttribute("style", "padding: 0px 10px 0px 10px;text-align: end;display: inline-flex;float: right;cursor: pointer;"), ContDiv.setAttribute("id", "Fuadalali_ExportContainer");
+        for (const Element of ["pdf", "excel", "word"]) {
+            const IconsCont = document.createElement("div");
+            (IconsCont.name = "Fuadalali_ExportButton_" + Element);
+            (IconsCont.id = "Fuadalali_ExportButton_" + Element);
+            (IconsCont.title = `تصدير ${Element}`);
+            if (Element == "pdf") {
+                IconsCont.setAttribute("style", "cursor: pointer;");
+                IconsCont.innerHTML = '<i class="fa fa-file-pdf-o" style="font-size: 35px;color: #F44336;"></i>';
+            }
+            else if (Element == "excel") {
+                IconsCont.setAttribute("style", "margin: 0px 30px; cursor: pointer;");
+                IconsCont.innerHTML = '<i class="fa fa-file-excel-o" style="font-size: 35px;color: #009688;"></i>';
+            }
+            else if (Element == "word") {
+                IconsCont.setAttribute("style", "cursor: pointer;");
+                IconsCont.innerHTML = '<i class="fa fa-file-word-o" style="font-size: 35px;color: #2196F3;"></i>';
+            }
+            IconsCont.addEventListener("click", () => window.$find(RepName).exportReport(Element === "excel" ? "EXCELOPENXML" : Element));
+            ContDiv.append(IconsCont);
+            if (Element == "excel") {
+				IconsCont.click();
+			}
+        }
+        const ParentDiv = document.querySelector(".ToolBarButtonsCell");
+        ParentDiv.prepend(ContDiv);
+    }
+    InitFunction();
+})();
